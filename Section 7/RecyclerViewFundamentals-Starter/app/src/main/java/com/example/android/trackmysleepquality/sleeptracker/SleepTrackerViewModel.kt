@@ -42,6 +42,10 @@ class SleepTrackerViewModel(
      */
     val database = dataSource
 
+    private val _navigateToSleepDetail = MutableLiveData<Long>()
+    val navigateToSleepDetail
+        get() = _navigateToSleepDetail
+
     /** Coroutine variables */
 
     /**
@@ -150,6 +154,10 @@ class SleepTrackerViewModel(
         }
     }
 
+    fun onSleepDetailNavigated() {
+        _navigateToSleepDetail.value = null
+    }
+
     /**
      *  Handling the case of the stopped app or forgotten recording,
      *  the start and end times will be the same.j
@@ -234,6 +242,10 @@ class SleepTrackerViewModel(
             // Show a snackbar message, because it's friendly.
             _showSnackbarEvent.value = true
         }
+    }
+
+    fun onSleepNightClicked(id: Long) {
+        _navigateToSleepDetail.value = id
     }
 
     /**
